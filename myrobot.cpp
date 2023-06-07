@@ -70,28 +70,30 @@ void MyRobot::MyTimerSlot() {
     Mutex.unlock();
 }
 
-void MyRobot::Forward(short speed1, short speed2) {
+void MyRobot::Forward() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed1;
+    DataToSend[2] = (short)speed;
     DataToSend[3] = 0;
-    DataToSend[4] = speed2;
+    DataToSend[4] = (short)speed;
     DataToSend[5] = 0;
     DataToSend[6] = 0b01010000;
     short mycrcsend = Crc16((unsigned char *)(DataToSend.data()),7);
     DataToSend[7] = mycrcsend;
     DataToSend[8] = mycrcsend >> 8;
     state = FORWARD;
+
+    qDebug() << "forward end";
 }
 
-void MyRobot::Backward(short speed1, short speed2) {
+void MyRobot::Backward() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed1;
+    DataToSend[2] = speed;
     DataToSend[3] = 0;
-    DataToSend[4] = speed2;
+    DataToSend[4] = speed;
     DataToSend[5] = 0;
     DataToSend[6] = 0b00000000;
     short mycrcsend = Crc16((unsigned char *)DataToSend.data(),7);
@@ -100,13 +102,13 @@ void MyRobot::Backward(short speed1, short speed2) {
     state = BACKWARD;
 }
 
-void MyRobot::Left(short speed1, short speed2) {
+void MyRobot::Left() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed2;
+    DataToSend[2] = speed;
     DataToSend[3] = 0;
-    DataToSend[4] = speed1;
+    DataToSend[4] = speed;
     DataToSend[5] = 0;
     DataToSend[6] = 0b00010000;
     short mycrcsend = Crc16((unsigned char *)DataToSend.data(),7);
@@ -115,13 +117,13 @@ void MyRobot::Left(short speed1, short speed2) {
     state = LEFT;
 }
 
-void MyRobot::Right(short speed1, short speed2) {
+void MyRobot::Right() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed1;
+    DataToSend[2] = speed;
     DataToSend[3] = 0;
-    DataToSend[4] = speed2;
+    DataToSend[4] = speed;
     DataToSend[5] = 0;
     DataToSend[6] = 0b01000000;
     short mycrcsend = Crc16((unsigned char *)DataToSend.data(),7);
@@ -130,13 +132,13 @@ void MyRobot::Right(short speed1, short speed2) {
     state = RIGHT;
 }
 
-void MyRobot::ForwardLeft(short speed1) {
+void MyRobot::ForwardLeft() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
     DataToSend[2] = 0;
     DataToSend[3] = 0;
-    DataToSend[4] = speed1*this->speed/100;
+    DataToSend[4] = speed*this->speed/100;
     DataToSend[5] = 0;
     DataToSend[6] = 0b01010000;
     short mycrcsend = Crc16((unsigned char *)DataToSend.data(),7);
@@ -145,11 +147,11 @@ void MyRobot::ForwardLeft(short speed1) {
     state = FORWARDLEFT;
 }
 
-void MyRobot::ForwardRight(short speed1) {
+void MyRobot::ForwardRight() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed1*this->speed/100;
+    DataToSend[2] = speed*this->speed/100;
     DataToSend[3] = 0;
     DataToSend[4] = 0;
     DataToSend[5] = 0;
@@ -160,13 +162,13 @@ void MyRobot::ForwardRight(short speed1) {
     state = FORWARDRIGHT;
 }
 
-void MyRobot::BackwardLeft(short speed1) {
+void MyRobot::BackwardLeft() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
     DataToSend[2] = 0;
     DataToSend[3] = 0;
-    DataToSend[4] = speed1*this->speed/100;
+    DataToSend[4] = speed*this->speed/100;
     DataToSend[5] = 0;
     DataToSend[6] = 0b00000000;
     short mycrcsend = Crc16((unsigned char *)DataToSend.data(),7);
@@ -175,11 +177,11 @@ void MyRobot::BackwardLeft(short speed1) {
     state = BACKWARDLEFT;
 }
 
-void MyRobot::BackwardRight(short speed1) {
+void MyRobot::BackwardRight() {
     DataToSend.resize(9);
     DataToSend[0] = 0xFF;
     DataToSend[1] = 0x07;
-    DataToSend[2] = speed1*this->speed/100;
+    DataToSend[2] = speed;
     DataToSend[3] = 0;
     DataToSend[4] = 0;
     DataToSend[5] = 0;
@@ -201,6 +203,30 @@ void MyRobot::Stop(){
     DataToSend[8] = 0;
 }
 
+
+void MyRobot::changeSpeed(int value)
+{
+    this->speed = value;
+    if(state == FORWARD){
+        qDebug() << "forward4";
+        this->Forward();
+    } else if(state == BACKWARD){
+        this->Backward();
+    } else if(state == RIGHT){
+        this->Right();
+    } else if(state == LEFT){
+        this->Left();
+    } else if(state == FORWARDRIGHT){
+        this->ForwardRight();
+    } else if(state == FORWARDLEFT){
+        this->ForwardLeft();
+    } else if(state == BACKWARDRIGHT){
+        this->BackwardRight();
+    } else if(state == BACKWARDLEFT){
+        this->BackwardLeft();
+    }
+
+}
 
 short MyRobot::Crc16(unsigned char *_Adresse_tab, unsigned char Taille_Max){
     unsigned int Crc = 0xFFFF;

@@ -12,7 +12,10 @@ private:
 
 public:
     Camera();
-
+    void moveRight();
+    void moveLeft();
+    void moveUp();
+    void moveDown();
 };
 
 #endif // CAMERA_H

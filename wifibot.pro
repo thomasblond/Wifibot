@@ -12,7 +12,6 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
     camera.cpp \
-    enumDirections.cpp \
     main.cpp \
     mainwindow.cpp \
     myrobot.cpp

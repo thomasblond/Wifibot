@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "myrobot.h"
 #include <iostream>
 #include <QUrl>
 
@@ -35,60 +35,63 @@ void MainWindow::on_pushButton_6_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    robot->Left(200,200);
+    robot->Left();
 }
 
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    robot->Right(200,200);
+    robot->Right();
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    robot->Forward(200,200);
+    robot->Forward();
+    qDebug() << "forward";
 }
 
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    robot->ForwardLeft(200);
+    robot->ForwardLeft();
 }
 
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    robot->ForwardRight(200);
+    robot->ForwardRight();
 }
 
 
 void MainWindow::on_pushButton_8_clicked()
 {
-    robot->Backward(200,200);
+    robot->Backward();
 }
 
 void MainWindow::on_pushButton_10_clicked()
 {
-    robot->BackwardLeft(200);
+    robot->BackwardLeft();
 }
 
 
 void MainWindow::on_pushButton_7_clicked()
 {
-    robot->BackwardRight(200);
+    robot->BackwardRight();
 }
 
 
 void MainWindow::on_verticalSlider_valueChanged(int value)
 {
     std::cout << value << std::endl;
+    qDebug() << "forward2";
+    robot->changeSpeed(value);
+    qDebug() << "forward3";
 }
 
 
 void MainWindow::on_verticalSlider_actionTriggered(int value)
 {
-    robot->speed = value;
 }
 
 
