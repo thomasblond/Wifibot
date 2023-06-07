@@ -2,7 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+//#include <QwebEngineView>
+//#include <QmediaPlayer>
+//#include <QVBoxLayaout>
+//#include <QtWebView/QtWebView>
+
 #include "myrobot.h"
+#include "camera.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,7 +23,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_9_clicked();
 
     void on_pushButton_6_clicked();
 
@@ -41,8 +46,17 @@ private slots:
 
     void on_verticalSlider_actionTriggered(int action);
 
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_11_clicked();
+
+    void on_pushButton_12_clicked();
+
+    void on_pushButton_13_clicked();
+
 private:
     Ui::MainWindow *ui;
     MyRobot *robot;
+    Camera *camera;
 };
 #endif // MAINWINDOW_H
