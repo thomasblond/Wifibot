@@ -44,7 +44,6 @@ public slots:
 private:
     QTcpSocket *socket;
     QTimer *TimerEnvoi;
-
     typedef enum
     {
         FORWARD,

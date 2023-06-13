@@ -2,11 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include <QwebEngineView>
-//#include <QmediaPlayer>
-//#include <QVBoxLayaout>
-//#include <QtWebView/QtWebView>
-
+#include <QKeyEvent>
 #include "myrobot.h"
 #include "camera.h"
 
@@ -44,8 +40,6 @@ private slots:
 
     void on_verticalSlider_valueChanged(int value);
 
-    void on_verticalSlider_actionTriggered(int action);
-
     void on_pushButton_9_clicked();
 
     void on_pushButton_11_clicked();
@@ -53,6 +47,17 @@ private slots:
     void on_pushButton_12_clicked();
 
     void on_pushButton_13_clicked();
+
+
+    void on_pushButton_14_clicked();
+
+    void on_pushButton_15_clicked();
+
+protected:
+
+    void keyPressEvent(QKeyEvent *event);
+
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     Ui::MainWindow *ui;

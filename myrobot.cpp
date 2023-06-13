@@ -83,8 +83,6 @@ void MyRobot::Forward() {
     DataToSend[7] = mycrcsend;
     DataToSend[8] = mycrcsend >> 8;
     state = FORWARD;
-
-    qDebug() << "forward end";
 }
 
 void MyRobot::Backward() {
@@ -208,7 +206,6 @@ void MyRobot::changeSpeed(int value)
 {
     this->speed = value;
     if(state == FORWARD){
-        qDebug() << "forward4";
         this->Forward();
     } else if(state == BACKWARD){
         this->Backward();
@@ -225,7 +222,6 @@ void MyRobot::changeSpeed(int value)
     } else if(state == BACKWARDLEFT){
         this->BackwardLeft();
     }
-
 }
 
 short MyRobot::Crc16(unsigned char *_Adresse_tab, unsigned char Taille_Max){

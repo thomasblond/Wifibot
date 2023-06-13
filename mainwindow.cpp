@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     robot = new MyRobot();
-    robot->doConnect();
     ui->setupUi(this);
 
     QWebEngineView *view = this->ui->frame;
@@ -24,7 +23,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 
 void MainWindow::on_pushButton_6_clicked()
@@ -48,7 +46,6 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     robot->Forward();
-    qDebug() << "forward";
 }
 
 
@@ -84,14 +81,7 @@ void MainWindow::on_pushButton_7_clicked()
 void MainWindow::on_verticalSlider_valueChanged(int value)
 {
     std::cout << value << std::endl;
-    qDebug() << "forward2";
     robot->changeSpeed(value);
-    qDebug() << "forward3";
-}
-
-
-void MainWindow::on_verticalSlider_actionTriggered(int value)
-{
 }
 
 
@@ -113,9 +103,59 @@ void MainWindow::on_pushButton_12_clicked()
 }
 
 
-
 void MainWindow::on_pushButton_13_clicked()
 {
     camera->moveRight();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    int keyPressed = event->key();
+    switch(keyPressed){
+
+        case Qt::Key_Z:
+
+            robot->Forward();
+            break;
+
+        case Qt::Key_S:
+
+            robot->Backward();
+            break;
+
+        case Qt::Key_D:
+
+            robot->Right();
+            break;
+
+        case Qt::Key_Q:
+
+            robot->Left();
+            break;
+    }
+
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Z || event->key() == Qt::Key_S ||
+        event->key() == Qt::Key_D || event->key() == Qt::Key_Q)
+    {
+        robot->Stop();
+    }
+}
+
+
+void MainWindow::on_pushButton_14_clicked()
+{
+    robot->doConnect();
+    qDebug() << "Connected !";
+}
+
+
+void MainWindow::on_pushButton_15_clicked()
+{
+    robot->disConnect();
+    qDebug() << "Disconnected !";
 }
 
