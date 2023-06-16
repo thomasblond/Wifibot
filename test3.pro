@@ -1,9 +1,7 @@
 QT       += core gui
 QT  += multimediawidgets
-QT += webengine
-QT += webenginewidgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
@@ -22,6 +20,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+QMAKE_CXXFLAGS += -fuse-ld=gold
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

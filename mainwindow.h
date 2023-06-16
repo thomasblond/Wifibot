@@ -18,11 +18,6 @@
 #include <QNetworkReply>
 #include <QPixmap>
 #include <QTimer>
-#include <QWebEngineHttpRequest>
-#include <QtWebEngine>
-#include <QtWebEngine/QtWebEngine>
-#include <QWebEngineView>
-#include <qwebengineview.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -39,10 +34,15 @@ public:
 
 private slots:
     void on_pushButton_pressed();
+    void updateUi();
 
 private:
     Ui::MainWindow *ui;
-    QWebEngineView webEngine{};
     QWidget *cadre{};
+    MyRobot r;
+
+    void setBat(float value);
+    void setIr(unsigned short avGauche, unsigned short avDroite, unsigned short arGauche, unsigned short arDroite);
+
 };
 #endif // MAINWINDOW_H

@@ -19,7 +19,8 @@ public:
     QMutex Mutex;
 
 signals:
-    void updateUI(const QByteArray Data);
+    void updateUI();
+    void test();
 
 public slots:
     void connected();
